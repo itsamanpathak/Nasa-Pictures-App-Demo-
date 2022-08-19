@@ -15,7 +15,7 @@ import com.amanpathak.nasapictures.databinding.ImagemetafragmentToolbarBinding
 
 class ImageMetaFragment : Fragment() {
     private lateinit var binding: FragmentImagemetaBinding
-    private val mainViewModel : MainViewModel by activityViewModels()
+    private val mainViewModel: MainViewModel by activityViewModels()
 
 
     override fun onCreateView(
@@ -38,8 +38,8 @@ class ImageMetaFragment : Fragment() {
 
         mainViewModel.currentModelLiveData.observe(viewLifecycleOwner, Observer {
 
-            with(binding){
-                title.text = "Name : ${it?.title}"
+            with(binding) {
+                metaTitle.text = "Name : ${it?.title}"
                 meditype.text = "MediaType : ${it?.mediaType}"
                 date.text = "Time : ${it?.date}"
                 explanation.text = "Description : \n\n${it?.explanation}"

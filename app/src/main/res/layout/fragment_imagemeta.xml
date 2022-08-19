@@ -6,6 +6,7 @@
     android:layout_height="match_parent"
     android:background="@color/white"
     android:animateLayoutChanges="true"
+    android:id="@+id/imageMetaFragment"
     tools:context=".views.imagegrid.ImageGridFragment">
 
 
@@ -26,23 +27,23 @@
         tools:layout_editor_absoluteX="0dp">
 
         <TextView
-            android:id="@+id/textView"
+            android:id="@+id/descSection"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="PHOTO INFORMATION"
+            android:text="@string/photo_information"
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/title"
+            android:id="@+id/metaTitle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/dp10"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView"
+            app:layout_constraintTop_toBottomOf="@+id/descSection"
             tools:text="@string/gallery" />
 
         <TextView
@@ -52,7 +53,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             android:layout_marginTop="@dimen/dp5"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/title"
+            app:layout_constraintTop_toBottomOf="@+id/metaTitle"
             tools:text="@string/gallery" />
 
         <TextView

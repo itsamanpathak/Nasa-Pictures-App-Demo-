@@ -14,7 +14,7 @@ import javax.inject.Inject
 class DataRepository @Inject constructor() {
     private val datafile = "data.json"
 
-    fun <T> fetchListForModel(context: Context, t : Class<T>) : List<T> {
+    fun <T> fetchListForModel(context: Context, t: Class<T>): List<T> {
         return getArrayListFromJson(loadJSONFromAsset(context)!!, t)
     }
 

@@ -14,26 +14,27 @@ import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 @HiltViewModel
-class MainViewModel @Inject constructor(appContext : Application, repo : MainRepository) : AndroidViewModel(appContext) {
+class MainViewModel @Inject constructor(appContext: Application, repo: MainRepository) :
+    AndroidViewModel(appContext) {
     private val photoList = MutableLiveData<List<PhotoModel>>()
-    var photoListLiveData : LiveData<List<PhotoModel>> = photoList
+    var photoListLiveData: LiveData<List<PhotoModel>> = photoList
 
     private var currentPosition = MutableLiveData<Int>(0)
-    var currentPositionLiveData : LiveData<Int> = currentPosition
+    var currentPositionLiveData: LiveData<Int> = currentPosition
 
     private var currentModel = MutableLiveData<PhotoModel?>()
-    var currentModelLiveData : LiveData<PhotoModel?> = currentModel
+    var currentModelLiveData: LiveData<PhotoModel?> = currentModel
 
     init {
 
         viewModelScope.launch {
-            withContext(Dispatchers.IO){
+            withContext(Dispatchers.IO) {
                 photoList.postValue(repo.fetchPhotoList(appContext, PhotoModel::class.java))
             }
         }
     }
 
-    fun setScrollPosition(position: Int){
+    fun setScrollPosition(position: Int) {
         currentPosition.value = position
 
         currentModel.value = photoList.value?.get(position)

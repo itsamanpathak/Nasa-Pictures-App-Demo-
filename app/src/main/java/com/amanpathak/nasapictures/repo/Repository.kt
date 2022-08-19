@@ -4,5 +4,5 @@ import android.content.Context
 import com.amanpathak.nasapictures.models.PhotoModel
 
 interface Repository {
-    suspend fun fetchPhotoList(context: Context, model: Class<PhotoModel>) : List<PhotoModel>
+    suspend fun fetchPhotoList(context: Context, model: Class<PhotoModel>): List<PhotoModel>
 }

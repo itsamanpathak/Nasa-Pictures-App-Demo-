@@ -9,17 +9,14 @@ import java.net.URL
 
 object Validator {
 
-    fun isValidUrl(imageUrl : String) : Boolean{
-        val regex = "([^\\s]+(\\.(?i)(jpe?g|png|gif|bmp))$)"
+    fun isValidUrl(imageUrl: String): Boolean {
 
         try {
             val url = URL(imageUrl)
             url.toURI()
-        }
-        catch (e : MalformedURLException){
+        } catch (e: MalformedURLException) {
             return false
-        }
-        catch (e : URISyntaxException){
+        } catch (e: URISyntaxException) {
             return false
         }
 

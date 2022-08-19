@@ -24,8 +24,8 @@ import dagger.hilt.android.AndroidEntryPoint
 @AndroidEntryPoint
 class ImageGridFragment : Fragment(), GalleryAdapter.Interaction {
     private lateinit var binding: FragmentImagegridBinding
-    private val mainViewModel : MainViewModel by activityViewModels()
-    private var adapter : GalleryAdapter? = null
+    private val mainViewModel: MainViewModel by activityViewModels()
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -38,13 +38,18 @@ class ImageGridFragment : Fragment(), GalleryAdapter.Interaction {
 
     private fun initViews() {
 
-        ImagegridToolbarBinding.inflate(layoutInflater,binding.root,true)
+        ImagegridToolbarBinding.inflate(layoutInflater, binding.root, true)
 
         mainViewModel.photoListLiveData.observe(viewLifecycleOwner, Observer {
-            with(binding.photoRecyclerView){
+            with(binding.photoRecyclerView) {
                 PagerSnapHelper().attachToRecyclerView(binding.photoRecyclerView)
                 layoutManager = GridLayoutManager(context, 3)
-                adapter = GalleryAdapter(requireActivity(), this@ImageGridFragment, it, GalleryAdapter.TYPE.GALLERY)
+                adapter = GalleryAdapter(
+                    requireActivity(),
+                    this@ImageGridFragment,
+                    it,
+                    GalleryAdapter.TYPE.GALLERY
+                )
             }
             binding.totalPhotos.text = "Total ${it.size} Photos"
 

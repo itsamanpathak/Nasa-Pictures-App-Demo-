@@ -3,4 +3,7 @@
 
     //Gallery
     <string name="gallery">Gallery</string>
+
+    <string name="photo_information">PHOTO INFORMATION</string>
+    <string name="details">Details</string>
 </resources>

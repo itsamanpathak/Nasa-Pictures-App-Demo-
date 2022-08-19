@@ -27,10 +27,8 @@ import com.amanpathak.nasapictures.models.PhotoModel
 
 class ImageDetailFragment : Fragment(), GalleryAdapter.Interaction {
     private lateinit var binding: FragmentImagedetailBinding
-    private lateinit var toolbarBinding : ImagedetailfragmentToolbarBinding
-    private val mainViewModel : MainViewModel by activityViewModels()
-    private var adapter : GalleryAdapter? = null
-
+    private lateinit var toolbarBinding: ImagedetailfragmentToolbarBinding
+    private val mainViewModel: MainViewModel by activityViewModels()
 
 
     override fun onCreateView(
@@ -56,8 +54,13 @@ class ImageDetailFragment : Fragment(), GalleryAdapter.Interaction {
         mainViewModel.photoListLiveData.observe(viewLifecycleOwner, Observer {
             with(binding.photoDetailRecyclerView) {
                 PagerSnapHelper().attachToRecyclerView(binding.photoDetailRecyclerView)
-                layoutManager = LinearLayoutManager(context,HORIZONTAL, false)
-                adapter = GalleryAdapter(requireActivity(), this@ImageDetailFragment,it,GalleryAdapter.TYPE.PHOTO_DETAIL)
+                layoutManager = LinearLayoutManager(context, HORIZONTAL, false)
+                adapter = GalleryAdapter(
+                    requireActivity(),
+                    this@ImageDetailFragment,
+                    it,
+                    GalleryAdapter.TYPE.PHOTO_DETAIL
+                )
                 scrollToPosition(mainViewModel.currentPositionLiveData.value!!)
                 adapter = adapter
                 val animator: ItemAnimator = binding.photoDetailRecyclerView.itemAnimator!!
@@ -68,11 +71,13 @@ class ImageDetailFragment : Fragment(), GalleryAdapter.Interaction {
 
         })
 
-        binding.photoDetailRecyclerView.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+        binding.photoDetailRecyclerView.addOnScrollListener(object :
+            RecyclerView.OnScrollListener() {
             override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
                 super.onScrollStateChanged(recyclerView, newState)
                 if (newState == RecyclerView.SCROLL_STATE_IDLE) {
-                    val position: Int = (recyclerView.layoutManager as LinearLayoutManager).findFirstVisibleItemPosition()
+                    val position: Int =
+                        (recyclerView.layoutManager as LinearLayoutManager).findFirstVisibleItemPosition()
                     mainViewModel.setScrollPosition(position)
                 }
             }
@@ -98,10 +103,12 @@ class ImageDetailFragment : Fragment(), GalleryAdapter.Interaction {
 
 
                 optionMenu.setOnMenuItemClickListener {
-                    when(it.itemId){
+                    when (it.itemId) {
                         R.id.details -> {
-                            val action = ImageDetailFragmentDirections.actionImageDetailFragmentToImageMetaFragment()
-                            NavHostFragment.findNavController(this@ImageDetailFragment).navigate(action)
+                            val action =
+                                ImageDetailFragmentDirections.actionImageDetailFragmentToImageMetaFragment()
+                            NavHostFragment.findNavController(this@ImageDetailFragment)
+                                .navigate(action)
                         }
                     }
                     true
@@ -111,7 +118,6 @@ class ImageDetailFragment : Fragment(), GalleryAdapter.Interaction {
 
 
     }
-
 
 
     override fun onImageSelect(photoItem: PhotoModel, position: Int, view: ImageView) {}
