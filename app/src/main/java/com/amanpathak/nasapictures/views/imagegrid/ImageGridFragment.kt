@@ -5,9 +5,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
+import androidx.navigation.fragment.FragmentNavigatorExtras
+import androidx.navigation.fragment.NavHostFragment
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.PagerSnapHelper
 import androidx.recyclerview.widget.SnapHelper
@@ -19,7 +22,7 @@ import com.amanpathak.nasapictures.models.PhotoModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class ImageGridFragment : Fragment(), GalleryAdapter.ImageSelectionInterface {
+class ImageGridFragment : Fragment(), GalleryAdapter.Interaction {
     private lateinit var binding: FragmentImagegridBinding
     private val mainViewModel : MainViewModel by activityViewModels()
     private var adapter : GalleryAdapter? = null
@@ -37,12 +40,12 @@ class ImageGridFragment : Fragment(), GalleryAdapter.ImageSelectionInterface {
 
         ImagegridToolbarBinding.inflate(layoutInflater,binding.root,true)
 
-        mainViewModel.photoList.observe(viewLifecycleOwner, Observer {
-            val snapHelper: SnapHelper = PagerSnapHelper()
-            snapHelper.attachToRecyclerView(binding.photoRecyclerView)
-            binding.photoRecyclerView.layoutManager = GridLayoutManager(context,3)
-            adapter = GalleryAdapter(requireActivity(), this,it, GalleryAdapter.TYPE.GALLERY)
-            binding.photoRecyclerView.adapter = adapter
+        mainViewModel.photoListLiveData.observe(viewLifecycleOwner, Observer {
+            with(binding.photoRecyclerView){
+                PagerSnapHelper().attachToRecyclerView(binding.photoRecyclerView)
+                layoutManager = GridLayoutManager(context, 3)
+                adapter = GalleryAdapter(requireActivity(), this@ImageGridFragment, it, GalleryAdapter.TYPE.GALLERY)
+            }
             binding.totalPhotos.text = "Total ${it.size} Photos"
 
         })
@@ -51,7 +54,9 @@ class ImageGridFragment : Fragment(), GalleryAdapter.ImageSelectionInterface {
     }
 
     override fun onImageSelect(photoItem: PhotoModel, position: Int, view: ImageView) {
-
+        mainViewModel.setScrollPosition(position)
+        val action = ImageGridFragmentDirections.actionImageGridFragmentToImageDetailFragment()
+        NavHostFragment.findNavController(this@ImageGridFragment).navigate(action)
     }
 
 }

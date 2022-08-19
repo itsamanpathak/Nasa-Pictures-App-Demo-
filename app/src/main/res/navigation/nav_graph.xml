@@ -10,5 +10,25 @@
         android:id="@+id/imageGridFragment"
         android:name="com.amanpathak.nasapictures.views.imagegrid.ImageGridFragment"
         android:label="fragment_imagegrid"
-        tools:layout="@layout/fragment_imagegrid" />
+        tools:layout="@layout/fragment_imagegrid" >
+        <action
+            android:id="@+id/action_imageGridFragment_to_imageDetailFragment"
+            app:destination="@id/imageDetailFragment"
+            app:launchSingleTop="false" />
+    </fragment>
+    <fragment
+        android:id="@+id/imageDetailFragment"
+        android:name="com.amanpathak.nasapictures.views.imagedetail.ImageDetailFragment"
+        android:label="ImageDetailFragment">
+        <action
+            android:id="@+id/action_imageDetailFragment_to_imageMetaFragment"
+            app:destination="@id/imageMetaFragment" />
+
+    </fragment>
+    <fragment
+        android:id="@+id/imageMetaFragment"
+        android:name="com.amanpathak.nasapictures.views.imagemeta.ImageMetaFragment"
+        android:label="ImageMetaFragment" >
+    </fragment>
+
 </navigation>
