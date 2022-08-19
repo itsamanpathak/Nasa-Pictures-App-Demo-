@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">Nasa Pictures</string>
+
+    //Gallery
+    <string name="gallery">Gallery</string>
+
+    <string name="photo_information">PHOTO INFORMATION</string>
+    <string name="details">Details</string>
+</resources>
